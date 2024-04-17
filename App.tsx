@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from '@shopify/restyle';
+import { StyleSheet, View } from 'react-native';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import theme, { Text } from 'utils/theme';
+import { Home } from 'view/home';
+import { Movie } from 'view/movies';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app! sdasd</Text>
-      <Text>This is the app for veteran weeb anime streaming website!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/movies" element={<Movie />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#000000",
     alignItems: 'center',
     justifyContent: 'center',
   },
