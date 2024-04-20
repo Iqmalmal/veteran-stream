@@ -1,36 +1,42 @@
-import Button from "component/shared/Button";
-import Input from "component/shared/Input";
-import { Image, StyleSheet } from "react-native";
-import theme, { Box, Text } from "utils/theme"
+import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import theme, { Box, Text } from 'utils/theme';
+import Button from 'component/shared/Button';
+import { Image, ScrollView, StyleSheet } from 'react-native';
+import Input from 'component/shared/Input';
+import { RecentAnime } from 'component/RecentAnime';
+import { Hero } from 'component/Hero';
 
 
 
 export const Home = () => {
+  
 
 
 
-    return(
-        <Box style={styles.container}>
-            <Image source={require('../public/prototype-img/ganyu.jpg')} style={styles.image}/>
-            <Text variant="text3Xl" color="white" mt="10" mb="12">Welcome To The Veteran Weeb</Text>
-            <Box style={styles.search}>
-                <Box >
-                    <Input label="Search" placeholder="Search Anime" style={styles.input}></Input>
-                </Box>
-                <Box>
-                    <Button label="Search" boxStyle={styles.button} />
-                </Box>
-            </Box>
-        </Box>
-    )
+  return (
+    <Box style={styles.container}>
+      <ScrollView>
+        <Hero />
+        <RecentAnime />
+      </ScrollView>
+    </Box>
+  );
+};
 
-}
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000000",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  hero: {
+    width: 1000,
+    marginTop: "30%",
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -44,14 +50,14 @@ const styles = StyleSheet.create({
     width: 600,
   },
 
-  image:{
+  image: {
     marginTop: -100,
     width: 300,
     height: 300,
     borderRadius: 20,
   },
 
-  button:{
+  button: {
     marginTop: 30,
     marginLeft: 10,
     width: 100,
