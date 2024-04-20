@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { useParams } from 'react-router-dom';
+import { FlatList, Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { useNavigate, useParams } from 'react-router-dom';
 import theme, { Box, Text } from 'utils/theme';
-import { WebView } from 'react-native-webview';
+
 
 const removeHtmlTags = (html: string): string => {
     return html.replace(/<[^>]*>?/gm, ''); // Remove all HTML tags
@@ -16,13 +16,14 @@ export const AnimeInfo = () => {
 
     const [animeInfoData, setAnimeInfoData] = useState<any[]>([]);
 
+    const navigate = useNavigate();
+
     const fetchAnimeInfo = async () => {
         try {
             const url = `https://consumet-flax.vercel.app/meta/anilist/info/${encodeURIComponent(animeId)}`;
             const response = await axios.get(url);
 
             response.data.description = removeHtmlTags(response.data.description);
-
             console.log('animeInfo', response.data);
             setAnimeInfoData(response.data);
         } catch (error) {
@@ -35,45 +36,68 @@ export const AnimeInfo = () => {
         fetchAnimeInfo();
     }, []); // Run once on component mount
 
-    return (
-        <ScrollView>
-            <Box style={styles.container}>
-                <Box style={styles.info}>
-                    <View style={styles.contentContainer}>
-                        <Image source={{ uri: animeInfoData.image }} style={styles.image} />
-                        <View style={styles.textContainer}>
-                            <Text variant="text3Xl" color="white" mb="12">
-                                {animeInfoData.title?.english}
-                            </Text>
-                            <Text variant="textLg" color="white">
-                                {animeInfoData.description}
-                            </Text>
+
+    const navigateToAnimeWatch = (id: number) => {
+        navigate(`/anime/watch/${encodeURIComponent(id)}`);
+    }
+
+    const renderEpisodeCard = ({ item }: { item: any }) => {
+        return (
+            <Pressable onPress={() => navigateToAnimeWatch(item.id)}>
+                <View style={styles.card}>
+                    <View style={styles.epImageContainer}>
+                        <Image source={item.image} style={styles.epImage} />
+                        <View style={styles.epOverlay}>
+                            <Text style={styles.epText}>{item.title}</Text>
                         </View>
                     </View>
+                </View>
+            </Pressable>
+        );
+    }
 
-                    <View>
-                        <iframe
-                            style={{backgroundColor: theme.colors.grey}}
-                            src='https://embtaku.pro/embedplus?id=MTM4Mjg5&token=rTNGH4AAfJeoZyIZeSTcdg&expires=1713617680'
-                            width="1080"
-                            height="720"
-                            frameBorder='0'
-                            allow='fullscreen'
-                        />
-                    </View>
-                </Box>
+
+    return (<ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <Box style={styles.container}>
+                
+                    <Box style={styles.info}>
+                        <View style={styles.contentContainer}>
+                            <Image source={{ uri: animeInfoData.image }} style={styles.image} />
+                            <View style={styles.textContainer}>
+                                <Text variant="text3Xl" color="white" mb="12">
+                                    {animeInfoData.title?.english}
+                                </Text>
+                                <Text variant="textLg" color="white">
+                                    {animeInfoData.description}
+                                </Text>
+                            </View>
+                        </View>
+                    </Box>
+                    <FlatList
+                        data={animeInfoData.episodes}
+                        renderItem={renderEpisodeCard}
+                        keyExtractor={(item) => item.id.toString()}
+                        numColumns={4}
+                        columnWrapperStyle={styles.columnWrapper}
+                    />
+
+                
             </Box>
-        </ScrollView>
+       </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    scrollViewContent:{
+        flexGrow: 1,
+    },
+
     container: {
         flex: 1,
         backgroundColor: "#000000",
         alignItems: 'center',
         justifyContent: 'center',
-        width: "100%"
+        maxHeight: '100%',
     },
 
     contentContainer: {
@@ -87,6 +111,7 @@ const styles = StyleSheet.create({
         marginTop: "10%",
         alignItems: 'center',
         justifyContent: 'center',
+        marginBottom: 20,
     },
     image: {
         marginTop: -100,
@@ -99,5 +124,49 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         flex: 1, // Take remaining space
         flexDirection: 'column', // Arrange children vertically
+    },
+
+    columnWrapper: {
+        justifyContent: "space-between",
+    },
+
+    card: {
+        flex: 1,
+        borderRadius: 5,
+        backgroundColor: "#black",
+        padding: 10,
+        margin: 10,
+    },
+
+    epImageContainer: {
+        width: 200,
+        height: 150,
+        borderRadius: 10,
+        position: 'relative', // Ensure positioning context
+        overflow: 'hidden', // Clip content outside container
+    },
+
+    epImage: {
+        width: '100%',
+        height: '100%',
+        opacity: 0.5, // Semi-transparent image
+    },
+
+    epOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent white
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    epText: {
+        color: 'white',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });

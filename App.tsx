@@ -17,6 +17,8 @@ export default function App() {
           <Route path="/movies" element={<Movie />} />
           <Route path='/anime/:title/:page' element={<Anime />} />
           <Route path="/anime/details/:id" element={<AnimeInfo/>} />
+          <Route path="/anime/watch/:id" element={<AnimeInfo />} />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
