@@ -37,9 +37,10 @@ export const AnimeInfo = () => {
     }, []); // Run once on component mount
 
 
-    const navigateToAnimeWatch = (id: number) => {
-        navigate(`/anime/watch/${encodeURIComponent(id)}`);
+    const navigateToAnimeWatch = (episodeid: string) => {
+        navigate(`/anime/stream/${encodeURIComponent(episodeid)}`);
     }
+
 
     const renderEpisodeCard = ({ item }: { item: any }) => {
         return (

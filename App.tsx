@@ -1,5 +1,6 @@
 import { ThemeProvider } from '@shopify/restyle';
 import { AnimeInfo } from 'component/AnimeInfo';
+import { AnimeStream } from 'component/AnimeStream';
 import { StyleSheet, View } from 'react-native';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import theme, { Text } from 'utils/theme';
@@ -17,7 +18,7 @@ export default function App() {
           <Route path="/movies" element={<Movie />} />
           <Route path='/anime/:title/:page' element={<Anime />} />
           <Route path="/anime/details/:id" element={<AnimeInfo/>} />
-          <Route path="/anime/watch/:id" element={<AnimeInfo />} />
+          <Route path="/anime/stream/:episodeid" element={<AnimeStream />} />
 
         </Routes>
       </BrowserRouter>
