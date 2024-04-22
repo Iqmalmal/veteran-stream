@@ -4,16 +4,35 @@ import axios from 'axios';
 import { StyleSheet, View, FlatList, Image, Pressable } from "react-native"; // Import FlatList for rendering the grid
 import Button from "./shared/Button";
 import { useNavigate } from "react-router-dom";
+import { set } from "react-hook-form";
 
 export const RecentAnime = () => {
     const [recentAnimeList, setRecentAnimeList] = useState<any[]>([]);
     const navigate = useNavigate();
+    
+    const [page, setPage] = useState(1);
+
+    const handleNextPage = () => {
+        if (page >= 3) {
+            setPage(1);
+        } else {
+            setPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if ( page > 1) {
+            setPage((prevPage) => prevPage - 1);
+        }
+    };
+
 
     const fetchRecentAnime = async () => {
         try {
-            const url = `https://consumet-flax.vercel.app/meta/anilist/recent-episodes?perPage=24`;
+            const url = `https://consumet-flax.vercel.app/meta/anilist/recent-episodes?page=${page}&perPage=24`;
             const response = await axios.get(url);
-            console.log('recentAnime', response.data);
+            // console.log('recentAnime', response.data);
+            console.log(url)
             setRecentAnimeList(response.data.results);
         } catch (error) {
             console.error('error in recentAnime', error);
@@ -23,12 +42,16 @@ export const RecentAnime = () => {
 
     useEffect(() => {
         fetchRecentAnime();
-    }, []);
+    }, [page]);
 
 
     const navigateToAnimeInfo = (id: number) => {
         navigate(`/anime/details/${encodeURIComponent(id)}`);
     }
+
+
+    
+
 
     const renderAnimeCard = ({ item }: { item: any }) => {
         const truncateTitle = 
@@ -54,8 +77,12 @@ export const RecentAnime = () => {
             <div >
                 <Text variant="text3Xl" fontWeight="bold" color="white" textAlign="left">Recent Anime</Text>
                 <div style={{ marginLeft: 1400, display: "flex" }}> 
-                    <Button label="<" boxStyle={styles.button}></Button>
-                    <Button label=">" boxStyle={styles.button}></Button>
+                    <Pressable>
+                        <Button label="<" boxStyle={styles.button} onPress={handlePrevPage}></Button>
+                    </Pressable>
+                    <Pressable>
+                        <Button label=">" boxStyle={styles.button} onPress={handleNextPage}></Button>
+                    </Pressable>
                 </div>
             </div>
             <FlatList
