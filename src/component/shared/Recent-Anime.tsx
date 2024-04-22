@@ -18,7 +18,7 @@ export const RecentAnimeNew = () => {
     const [page, setPage] = useState(1);
 
     const handleNextPage = () => {
-        if (page >= 3) {
+        if (page >= 173) {
             setPage(1);
         } else {
             setPage((prevPage) => prevPage + 1);
@@ -34,7 +34,7 @@ export const RecentAnimeNew = () => {
 
     const fetchRecentAnime = async () => {
         try {
-            const url = `https://consumet-flax.vercel.app/meta/anilist/recent-episodes?page=${page}&perPage=24`;
+            const url = `https://consumet-flax.vercel.app/anime/zoro/recent-episodes?page=${page}&perPage=24`;
             const response = await axios.get(url);
             // console.log('recentAnime', response.data);
             console.log(url)
@@ -85,7 +85,8 @@ export const RecentAnimeNew = () => {
                     </Box>
                 </Box>
 
-                <MiuBox>
+                {/* ANILIST */}
+                {/* <MiuBox>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {Array.from(recentAnimeList).map((_, index) => {
                             const truncateTitle = recentAnimeList[index].title.english.length > 10 ? `${recentAnimeList[index].title.romaji.slice(0, 20)}...` : recentAnimeList[index].title.english;
@@ -96,6 +97,29 @@ export const RecentAnimeNew = () => {
                                         <Text variant="textLg" fontWeight="bold" color="white">{truncateTitle}</Text>
                                         <div style={{ display: "flex" }}>
                                             <Button label={`Episode ${recentAnimeList[index].episodeNumber}`} boxStyle={styles.animeEp} textStyle={styles.animeEpText}></Button>
+                                            <Button label={recentAnimeList[index].type} boxStyle={styles.animeType} textStyle={styles.animeTypeText}></Button>
+                                        </div>
+                                    </Pressable>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </MiuBox> */}
+
+
+
+                {/* ZORO */}
+                <MiuBox>
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        {Array.from(recentAnimeList).map((_, index) => {
+                            const truncateTitle = recentAnimeList[index].title.length > 10 ? `${recentAnimeList[index].title.slice(0, 20)}...` : recentAnimeList[index].title;
+                            return (
+                                <Grid item xs={2} key={index}>
+                                    <Pressable onPress={() => navigateToAnimeInfo(recentAnimeList[index].id)}>
+                                        <img src={recentAnimeList[index].image} alt={recentAnimeList[index].title} width={200} height={300} />
+                                        <Text variant="textLg" fontWeight="bold" color="white">{truncateTitle}</Text>
+                                        <div style={{ display: "flex" }}>
+                                            <Button label={`Episode ${recentAnimeList[index].sub}`} boxStyle={styles.animeEp} textStyle={styles.animeEpText}></Button>
                                             <Button label={recentAnimeList[index].type} boxStyle={styles.animeType} textStyle={styles.animeTypeText}></Button>
                                         </div>
                                     </Pressable>
