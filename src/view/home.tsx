@@ -6,6 +6,7 @@ import { Image, ScrollView, StyleSheet } from 'react-native';
 import Input from 'component/shared/Input';
 import { RecentAnime } from 'component/RecentAnime';
 import { Hero } from 'component/Hero';
+import { RecentAnimeNew } from 'component/shared/Recent-Anime';
 
 
 
@@ -18,7 +19,7 @@ export const Home = () => {
     <Box style={styles.container}>
       <ScrollView>
         <Hero />
-        <RecentAnime />
+        <RecentAnimeNew />
       </ScrollView>
     </Box>
   );

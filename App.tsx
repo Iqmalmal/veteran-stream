@@ -7,8 +7,17 @@ import theme, { Text } from 'utils/theme';
 import { Anime } from 'view/anime';
 import { Home } from 'view/home';
 import { Movie } from 'view/movies';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { AnimeNew } from 'component/AnimeNew';
+
 
 export default function App() {
+  // const productionUrl: `https://veteran-stream.vercel.app/`
+
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>

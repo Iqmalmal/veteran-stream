@@ -25,7 +25,7 @@ export const Hero = () => {
 
     return (
         <Box style={styles.hero}>
-            <Image source={require('../public/prototype-img/ganyu.jpg')} style={styles.image} />
+            <Image source={require('../public/prototype-img/veteran-weeb.jpg')} style={styles.image} />
             <Text variant="text3Xl" color="white" mt="10" mb="12">
                 Welcome To The Veteran Weeb
             </Text>
