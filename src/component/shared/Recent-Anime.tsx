@@ -34,7 +34,7 @@ export const RecentAnimeNew = () => {
 
     const fetchRecentAnime = async () => {
         try {
-            const url = `https://consumet-flax.vercel.app/anime/zoro/recent-episodes?page=${page}&perPage=24`;
+            const url = `https://consumet-flax.vercel.app/meta/anilist/recent-episodes?page=${page}&perPage=30&provider=zoro`;
             const response = await axios.get(url);
             // console.log('recentAnime', response.data);
             console.log(url)
@@ -86,7 +86,7 @@ export const RecentAnimeNew = () => {
                 </Box>
 
                 {/* ANILIST */}
-                {/* <MiuBox>
+                <MiuBox>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {Array.from(recentAnimeList).map((_, index) => {
                             const truncateTitle = recentAnimeList[index].title.english.length > 10 ? `${recentAnimeList[index].title.romaji.slice(0, 20)}...` : recentAnimeList[index].title.english;
@@ -104,12 +104,12 @@ export const RecentAnimeNew = () => {
                             )
                         })}
                     </Grid>
-                </MiuBox> */}
+                </MiuBox>
 
 
 
                 {/* ZORO */}
-                <MiuBox>
+                {/* <MiuBox>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {Array.from(recentAnimeList).map((_, index) => {
                             const truncateTitle = recentAnimeList[index].title.length > 10 ? `${recentAnimeList[index].title.slice(0, 20)}...` : recentAnimeList[index].title;
@@ -127,7 +127,7 @@ export const RecentAnimeNew = () => {
                             )
                         })}
                     </Grid>
-                </MiuBox>
+                </MiuBox> */}
 
             </Box>
         </Box>
