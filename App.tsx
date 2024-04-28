@@ -1,5 +1,4 @@
 import { ThemeProvider } from '@shopify/restyle';
-import { AnimeInfo } from 'component/AnimeInfo';
 import { AnimeStream } from 'component/AnimeStream';
 import { StyleSheet, View } from 'react-native';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -12,6 +11,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { AnimeNew } from 'component/AnimeNew';
+import { AnimeInfoNew } from 'component/Anime-Info';
 
 
 export default function App() {
@@ -26,7 +26,7 @@ export default function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/movies" element={<Movie />} />
           <Route path='/anime/:title/:page' element={<AnimeNew />} />
-          <Route path="/anime/details/:id" element={<AnimeInfo/>} />
+          <Route path="/anime/details/:id" element={<AnimeInfoNew/>} />
           <Route path="/anime/stream/:episodeid" element={<AnimeStream />} />
 
         </Routes>

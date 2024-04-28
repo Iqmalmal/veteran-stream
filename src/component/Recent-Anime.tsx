@@ -3,7 +3,7 @@ import theme, { Box, Text } from "utils/theme";
 import axios from 'axios';
 import { StyleSheet, View, FlatList, Image, Pressable } from "react-native"; // Import FlatList for rendering the grid
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "./shared/Button";
 
 
 import { styled } from '@mui/material/styles';
@@ -34,9 +34,9 @@ export const RecentAnimeNew = () => {
 
     const fetchRecentAnime = async () => {
         try {
-            const url = `https://consumet-flax.vercel.app/meta/anilist/recent-episodes?page=${page}&perPage=30&provider=zoro`;
+            const url = `https://consumet-flax.vercel.app/anime/zoro/recent-episodes`;
             const response = await axios.get(url);
-            // console.log('recentAnime', response.data);
+            console.log('recentAnime', response.data);
             console.log(url)
             setRecentAnimeList(response.data.results);
         } catch (error) {
@@ -50,7 +50,7 @@ export const RecentAnimeNew = () => {
     }, [page]);
 
 
-    const navigateToAnimeInfo = (id: number) => {
+    const navigateToAnimeInfo = (id: string) => {
         navigate(`/anime/details/${encodeURIComponent(id)}`);
     }
 
@@ -86,7 +86,7 @@ export const RecentAnimeNew = () => {
                 </Box>
 
                 {/* ANILIST */}
-                <MiuBox>
+                {/* <MiuBox>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {Array.from(recentAnimeList).map((_, index) => {
                             const truncateTitle = recentAnimeList[index].title.english.length > 10 ? `${recentAnimeList[index].title.romaji.slice(0, 20)}...` : recentAnimeList[index].title.english;
@@ -104,12 +104,12 @@ export const RecentAnimeNew = () => {
                             )
                         })}
                     </Grid>
-                </MiuBox>
+                </MiuBox> */}
 
 
 
                 {/* ZORO */}
-                {/* <MiuBox>
+                <MiuBox>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {Array.from(recentAnimeList).map((_, index) => {
                             const truncateTitle = recentAnimeList[index].title.length > 10 ? `${recentAnimeList[index].title.slice(0, 20)}...` : recentAnimeList[index].title;
@@ -127,7 +127,7 @@ export const RecentAnimeNew = () => {
                             )
                         })}
                     </Grid>
-                </MiuBox> */}
+                </MiuBox>
 
             </Box>
         </Box>

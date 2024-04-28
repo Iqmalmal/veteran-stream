@@ -27,7 +27,7 @@ const VideoPlayer: React.FC<{ src: string }> = ({ src }) => {
         }
     }, [src]);
 
-    return <video ref={videoRef} controls />;
+    return <video ref={videoRef} controls style={{width: 720, height: 1280}}/>;
 };
 
 export default VideoPlayer;

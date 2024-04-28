@@ -20,7 +20,7 @@ export const AnimeNew = () => {
         const fetchAnime = async () => {
             try {
                 if (title) {
-                    const url = `https://consumet-flax.vercel.app/meta/anilist/${encodeURIComponent(title)}`;
+                    const url = `https://aniwatch-ten.vercel.app/anime/info?id=${encodeURIComponent(title)}`;
                     const response = await axios.get(url);
                     const results = response.data.results;
                     setAnimeList(results);
